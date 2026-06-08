@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>MY × SG Intel Deck — An Immersive Citizen Comparison Experience</title>
+<meta name="description" content="An interactive, gamified, story-told deep-dive into Malaysia vs Singapore — built from a five-file intelligence dossier. Rapid-fire decks, quote of the day, and question of the day, remixed hour by hour." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<canvas id="confetti"></canvas>
+<div class="toast" id="toast"></div>
+
+<!-- ============ NAV ============ -->
+<nav class="nav">
+  <div class="nav__brand">
+    <span class="nav__logo">⚡</span>
+    <span>MY × SG <span style="opacity:.45;font-weight:600">/ Intel Deck</span></span>
+  </div>
+  <div class="nav__links">
+    <a class="nav__link" href="#files">The Dossier</a>
+    <a class="nav__link" href="#snapshot">Snapshot</a>
+    <a class="nav__link" href="#quote">Quote of the Day</a>
+    <a class="nav__link" href="#rapidfire">Rapid Fire</a>
+    <a class="nav__link" href="#qotd">Question of the Day</a>
+  </div>
+  <div style="display:flex; align-items:center; gap:10px;">
+    <span id="liveClock" style="font-size:.78rem;font-weight:800;letter-spacing:.06em;color:var(--ink-soft);display:none" class="show-desktop"></span>
+    <button class="nav__cta" id="soundToggle">🔊 Sound on</button>
+    <button class="nav__burger" id="burger" aria-label="Open menu">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</nav>
+
+<div class="drawer-overlay" id="drawerOverlay"></div>
+<aside class="drawer" id="drawer">
+  <a class="drawer__link" href="#files">📁 The Dossier</a>
+  <a class="drawer__link" href="#snapshot">📊 Snapshot Carousel</a>
+  <a class="drawer__link" href="#quote">💬 Quote of the Day</a>
+  <a class="drawer__link" href="#rapidfire">⚡ Rapid Fire Deck</a>
+  <a class="drawer__link" href="#qotd">❓ Question of the Day</a>
+  <p style="margin-top:30px;color:var(--ink-soft);font-size:.85rem;line-height:1.6">Every quote, quiz card and prompt is shuffled fresh — hour by hour, day by day. Come back later for a different remix. 🔀</p>
+</aside>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <span class="hero__orb o1"></span>
+  <span class="hero__orb o2"></span>
+  <span class="hero__orb o3"></span>
+
+  <span class="hero__kicker reveal in"><span class="hero__dot"></span> A five-file intelligence dossier, gamified</span>
+
+  <h1>
+    <span class="flag my">Malaysia</span><span class="x"> ✕ </span><span class="flag sg">Singapore</span><br/>
+    <span class="x">— the honest deck.</span>
+  </h1>
+
+  <p class="lede">Optionality vs. compounding. Space vs. floor. Mess vs. order. Dive into the full word-for-word dossier, replay the rapid-fire trivia deck, catch a fresh quote every hour, and wrestle with a new question every day.</p>
+
+  <div class="hero__ctas">
+    <button class="btn btn--pop" onclick="document.getElementById('files').scrollIntoView({behavior:'smooth'})">📂 Open the dossier</button>
+    <button class="btn btn--ghost" onclick="document.getElementById('rapidfire').scrollIntoView({behavior:'smooth'})">⚡ Play Rapid Fire</button>
+  </div>
+
+  <div class="hero__stats">
+    <div class="stat"><b>5</b><span>Source files</span></div>
+    <div class="stat"><b>40</b><span>Quote deck cards</span></div>
+    <div class="stat"><b id="rfCount">41</b><span>Rapid-fire questions</span></div>
+    <div class="stat"><b>20</b><span>Daily prompts</span></div>
+  </div>
+
+  <div class="scroll-cue"><i></i>Scroll to explore</div>
+</header>
+
+<!-- ============ THE DOSSIER (5 file cards -> modals) ============ -->
+<section class="section" id="files">
+  <div class="section__head reveal">
+    <span class="eyebrow">01 / The Dossier</span>
+    <h2>The receipts, unredacted.</h2>
+    <p class="sub">Swipe or use the arrows to flip through the source files, then tap a card to open the full reader — every line preserved exactly as written, tables and all.</p>
+  </div>
+
+  <div class="carousel reveal" id="fileCarousel">
+    <div class="carousel__viewport">
+
+      <div class="carousel__slide"><article class="filecard f1" data-open-file="1">
+        <span class="filecard__glow"></span>
+        <span class="filecard__tag">Citizen comparison</span>
+        <span class="filecard__num">01</span>
+        <h3>MY vs SG: The Honest Citizen Comparison</h3>
+        <p>"Optionality, space, and family/social slack" vs. "institutional compounding, global trust, and a higher floor" — the full snapshot, key findings, hidden disadvantages, and the MY–SG "third path."</p>
+        <span class="filecard__cta">Read the full file <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </article></div>
+
+      <div class="carousel__slide"><article class="filecard f2" data-open-file="2">
+        <span class="filecard__glow"></span>
+        <span class="filecard__tag">ASEAN standing</span>
+        <span class="filecard__num">02</span>
+        <h3>Are MY & SG Doing Well in ASEAN?</h3>
+        <p>"Singapore = elite outlier. Malaysia = upper ASEAN / comfortable middle-power." Economy, governance, innovation, infrastructure, and the uncomfortable truth about being "boring."</p>
+        <span class="filecard__cta">Read the full file <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </article></div>
+
+      <div class="carousel__slide"><article class="filecard f3" data-open-file="3">
+        <span class="filecard__glow"></span>
+        <span class="filecard__tag">Global standing</span>
+        <span class="filecard__num">03</span>
+        <h3>MY & SG on the Global Stage</h3>
+        <p>Singapore competes with Switzerland and the UAE; Malaysia sits in the upper-middle / near-high-income tier. Full global positioning tables, regional comparisons, and brutally honest rankings.</p>
+        <span class="filecard__cta">Read the full file <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </article></div>
+
+      <div class="carousel__slide"><article class="filecard f4" data-open-file="4">
+        <span class="filecard__glow"></span>
+        <span class="filecard__tag">Gratitude · Malaysia</span>
+        <span class="filecard__num">04</span>
+        <h3>Things to Be Grateful For as a Malaysian</h3>
+        <p>Food as emotional infrastructure, multilingual superpowers, soft landings, "enough development to function, enough chaos to breathe" — the full gratitude list, romanticism warnings included.</p>
+        <span class="filecard__cta">Read the full file <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </article></div>
+
+      <div class="carousel__slide"><article class="filecard f5" data-open-file="5">
+        <span class="filecard__glow"></span>
+        <span class="filecard__tag">Gratitude · Singapore</span>
+        <span class="filecard__num">05</span>
+        <h3>Things to Be Grateful For as a Singaporean</h3>
+        <p>"The biggest underrated blessing: predictability." Boring competence, the passport, hawker culture, CPF as stabiliser, and the strong floor that quietly holds everything up.</p>
+        <span class="filecard__cta">Read the full file <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </article></div>
+
+    </div>
+    <div class="carousel__nav">
+      <span class="carousel__counter" data-counter>01 / 05</span>
+      <button class="carousel__btn" data-prev aria-label="Previous file">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="carousel__btn" data-next aria-label="Next file">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SNAPSHOT CAROUSEL (1 item per slide, no dots) ============ -->
+<section class="section" id="snapshot">
+  <div class="section__head reveal">
+    <span class="eyebrow">02 / Snapshot Carousel</span>
+    <h2>Without the usual clichés.</h2>
+    <p class="sub">From File 1's core comparison table — one dimension per slide. Swipe or use the arrows; each card is the same fixed height, content scrolls inside.</p>
+  </div>
+
+  <div class="carousel reveal" id="snapCarousel">
+    <div class="carousel__viewport">
+
+      <div class="carousel__slide"><div class="snap-card">
+        <span class="snap-card__dim">🧭 Life strategy</span>
+        <div class="snap-card__cols">
+          <div class="snap-col my"><h4>Malaysian advantage</h4>More room to experiment, fail, start small, live cheaper.</div>
+          <div class="snap-col sg"><h4>Singaporean advantage</h4>Higher floor, stronger systems, clearer rules.</div>
+        </div>
+      </div></div>
+
+      <div class="carousel__slide"><div class="snap-card">
+        <span class="snap-card__dim">💼 Career</span>
+        <div class="snap-card__cols">
+          <div class="snap-col my"><h4>Malaysian advantage</h4>Best if earning SGD/USD while spending MYR; wider informal/SME space.</div>
+          <div class="snap-col sg"><h4>Singaporean advantage</h4>Better global signalling, HQ roles, finance/tech/legal/regional jobs.</div>
+        </div>
+      </div></div>
+
+      <div class="carousel__slide"><div class="snap-card">
+        <span class="snap-card__dim">👨‍👩‍👧‍👦 Family life</span>
+        <div class="snap-card__cols">
+          <div class="snap-col my"><h4>Malaysian advantage</h4>More land, relatives, help, kampung/suburban options.</div>
+          <div class="snap-col sg"><h4>Singaporean advantage</h4>Better public safety, schools, healthcare reliability.</div>
+        </div>
+      </div></div>
+
+      <div class="carousel__slide"><div class="snap-card">
+        <span class="snap-card__dim">✈️ Mobility</span>
+        <div class="snap-card__cols">
+          <div class="snap-col my"><h4>Malaysian advantage</h4>Strong passport, ASEAN familiarity, easier "dual-market" MY–SG life.</div>
+          <div class="snap-col sg"><h4>Singaporean advantage</h4>World-leading passport; Singapore brand reduces friction.</div>
+        </div>
+      </div></div>
+
+      <div class="carousel__slide"><div class="snap-card">
+        <span class="snap-card__dim">💰 Wealth</span>
+        <div class="snap-card__cols">
+          <div class="snap-col my"><h4>Malaysian advantage</h4>Better for lifestyle arbitrage and land/property optionality.</div>
+          <div class="snap-col sg"><h4>Singaporean advantage</h4>Better for forced savings, currency strength, asset credibility.</div>
+        </div>
+      </div></div>
+
+      <div class="carousel__slide"><div class="snap-card">
+        <span class="snap-card__dim">⚠️ Downside</span>
+        <div class="snap-card__cols">
+          <div class="snap-col my"><h4>Malaysian downside</h4>Policy inconsistency, lower wage floor, ethnic/class fragmentation.</div>
+          <div class="snap-col sg"><h4>Singaporean downside</h4>High pressure, small space, costly housing, NS obligation for males.</div>
+        </div>
+      </div></div>
+
+    </div>
+    <div class="carousel__nav">
+      <span class="carousel__counter" data-counter>01 / 06</span>
+      <button class="carousel__btn" data-prev aria-label="Previous slide">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="carousel__btn" data-next aria-label="Next slide">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ QUOTE OF THE DAY ============ -->
+<section class="section" id="quote">
+  <div class="section__head reveal">
+    <span class="eyebrow">03 / Quote Deck</span>
+    <h2>Quote of the hour.</h2>
+    <p class="sub">40 verbatim lines pulled straight from the dossier — the deck reshuffles itself every hour using a time-seeded shuffle, and you can remix it on demand.</p>
+  </div>
+  <div class="quote-stage reveal" id="quoteStage">
+    <span class="quote-stage__meta">💬 <span id="quoteMeta">Refreshed hourly</span></span>
+    <button class="quote-stage__shuffle" id="quoteShuffle">🔀 Remix quote</button>
+    <div class="quote-stage__inner">
+      <div class="quote-mark">“</div>
+      <div class="quote-text" id="quoteText">Loading…</div>
+      <div class="quote-src" id="quoteSrc"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RAPID FIRE DECK ============ -->
+<section class="section" id="rapidfire">
+  <div class="section__head reveal">
+    <span class="eyebrow">04 / Rapid Fire</span>
+    <h2>Think you read the dossier closely?</h2>
+    <p class="sub">41 fast-flick trivia cards drawn straight from the five files' hard data — GDP, HDI, passports, CPF, hawker culture and more. Order reshuffles every hour.</p>
+  </div>
+  <div class="deck-wrap reveal">
+    <div class="deck" id="deck"></div>
+    <div class="deck__controls">
+      <span class="deck__progress" id="deckProgress"></span>
+      <span class="deck__score" id="deckScore">Score: 0</span>
+      <button class="btn btn--ghost" id="deckRestart">🔀 Reshuffle deck</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ QUESTION OF THE DAY ============ -->
+<section class="section" id="qotd">
+  <div class="section__head reveal">
+    <span class="eyebrow">05 / Reflection</span>
+    <h2>Question of the day.</h2>
+    <p class="sub">A new reflective prompt drops daily — seeded by today's date so everyone gets the same one — built directly from the dossier's biggest tensions: optionality vs. floor, mess vs. order, space vs. trust.</p>
+  </div>
+  <div class="qotd-card reveal">
+    <span class="qotd-card__label">❓ <span id="qotdMeta">Today's prompt</span></span>
+    <p class="qotd-card__q" id="qotdText">Loading…</p>
+    <div class="qotd-card__actions">
+      <button class="btn btn--ghost" id="qotdShuffle" style="background:#fff;color:var(--ink)">🎲 Shuffle a bonus prompt</button>
+      <button class="btn btn--pop" id="qotdDiscuss" style="background:rgba(255,255,255,.92);color:var(--ink);box-shadow:none">💬 Sit with it</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer reveal">
+  <h3>Built from one dossier. Shuffled forever.</h3>
+  <p>Every quote, quiz card, and daily question lives inside the five source files — nothing invented, nothing lost. The remix engine just makes sure no two visits feel the same.</p>
+  <div class="footer__badges">
+    <span class="badge">📂 5 files preserved word-for-word</span>
+    <span class="badge">🔀 Hour-seeded shuffles</span>
+    <span class="badge">📱 Fully responsive</span>
+    <span class="badge">⚡ Zero build step · static & GH Pages-ready</span>
+  </div>
+  <p class="footer__tiny">Info inside the dossier current as of 8 June 2026 — citizenship, housing, tax & immigration rules can change; always verify before irreversible decisions. Built as an interactive learning experience, not financial or migration advice.</p>
+</footer>
+
+<!-- ============ MODAL ============ -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" role="dialog" aria-modal="true">
+    <div class="modal__head">
+      <span class="modal__title" id="modalTitle">Title</span>
+      <button class="modal__close" id="modalClose" aria-label="Close">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="modal__body" id="modalBody"></div>
+  </div>
+</div>
+
+<script src="data/content-1.js"></script>
+<script src="data/content-2.js"></script>
+<script src="data/content-3.js"></script>
+<script src="data/content-4.js"></script>
+<script src="data/content-5.js"></script>
+<script src="data/game-data.js"></script>
+<script src="js/markdown.js"></script>
+<script src="js/sound.js"></script>
+<script src="js/main.js"></script>
+<script>
+  document.getElementById("rfCount").textContent = window.RAPID_FIRE.length;
+  // show live clock on wider screens only
+  function syncClockVisibility(){ document.getElementById("liveClock").style.display = innerWidth > 860 ? "inline" : "none"; }
+  syncClockVisibility(); addEventListener("resize", syncClockVisibility);
+</script>
+</body>
+</html>
